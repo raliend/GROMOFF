@@ -62,19 +62,22 @@ nav{
     background: var(--card-bg);
     border: 1px solid var(--border-color);
     transition: background 0.3s, transform 0.3s;
+    overflow: hidden; /* Скрываем части изображения, выходящие за овал */
 }
 .theme-switcher:hover { transform: scale(1.1); }
-.theme-switcher img {
-    height: 24px;
+.theme-switcher img, .exp-logo {
     transition: filter 0.3s ease-in-out;
 }
+.theme-switcher img {
+    height: 100%; /* Растягиваем изображение на всю высоту */
+    width: 100%;  /* Растягиваем изображение на всю ширину */
+    object-fit: cover; /* Масштабируем с сохранением пропорций и обрезкой */
+}
 .exp-logo {
-    max-height: 60px; /* Ограничение по высоте */
-    max-width: 150px; /* Ограничение по ширине */
-    width: auto;      /* Автоматическая ширина для сохранения пропорций */
-    height: auto;     /* Автоматическая высота */
-    object-fit: contain;
-    transition: filter 0.3s ease-in-out;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* Делаем само изображение овальным, чтобы избежать артефактов */
 }
 
 /* Правило для инверсии логотипов в темной теме */
@@ -146,6 +149,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
     padding: 20px;
+    overflow: hidden; /* Скрываем части лого, выходящие за овал */
 }
 .experience-card:hover {
     transform: translateY(-10px);
@@ -157,7 +161,16 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     color: var(--muted-text);
     font-size: 14px;
     margin-bottom: 10px;
+    position: absolute; /* Позиционируем год поверх лого */
+    top: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 2px 8px;
+    border-radius: 12px;
 }
+[data-theme="dark"] .exp-year {
+    background: rgba(0, 0, 0, 0.7);
+}
+
 
 /* ─────────── 5. Модальное окно (Pop-up) для опыта ─────────── */
 .modal-overlay {
@@ -222,7 +235,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .case-review blockquote {border-left: 3px solid var(--accent); padding-left: 15px; margin: 0; font-style: italic;}
 .case-review footer {text-align: right; color: var(--muted-text); font-size: 14px; font-style: normal;}
 
-/* Компетенции */
+/* Компетенции (восстановленный блок) */
 .competencies-grid{display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;}
 .competency-block{flex: 1 1 300px; background: var(--card-bg); padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: background 0.3s;}
 .competency-block h3{color: var(--accent)}
@@ -329,12 +342,48 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
                 <footer>— Глава направления обучения, Т-Банк</footer>
             </div>
         </div>
+        
+        <div class="case-card" onclick="toggleReview(this)">
+             <div class="case-header">
+                <img src="private-case.jpg" alt="Private Invest Case" class="case-icon">
+                <div class="case-title">
+                    <h3>Private Invest Back-Office (Т-Банк)</h3>
+                    <p>Нажмите, чтобы увидеть отзыв</p>
+                </div>
+            </div>
+            <div class="case-review">
+                <blockquote>Благодаря инициативе Данилы по оптимизации бэк-офиса мы смогли значительно ускорить решение технических проблем. Его аналитический склад ума и умение работать с логами были незаменимы.</blockquote>
+                <footer>— Руководитель Private Invest, Т-Банк</footer>
+            </div>
+        </div>
     </div>
 </section>
 
 <section id="competencies">
-    <h2>Ключевые компетенции</h2>
-    <!-- ... код компетенций ... -->
+  <h2>Ключевые компетенции</h2>
+  <div class="competencies-grid">
+    <div class="competency-block">
+      <h3>Data & Tech</h3>
+      <div class="skillbox"><div class="skill-label"><span>SQL</span><span>9/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="90%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>Python (Pandas)</span><span>7/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="70%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>BI (Tableau, PowerBI)</span><span>10/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="100%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>A/B тестирование</span><span>9/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="90%"></div></div></div>
+    </div>
+    <div class="competency-block">
+      <h3>Управление</h3>
+      <div class="skillbox"><div class="skill-label"><span>Agile (Scrum, Kanban)</span><span>8/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="80%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>Риски и ресурсы</span><span>9/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="90%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>Unit Economics</span><span>7/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="70%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>CJM & User Stories</span><span>9/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="90%"></div></div></div>
+    </div>
+    <div class="competency-block">
+      <h3>Инструменты</h3>
+      <div class="skillbox"><div class="skill-label"><span>Jira / Confluence</span><span>10/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="100%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>Miro / FigJam</span><span>10/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="100%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>BPMN / UML</span><span>8/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="80%"></div></div></div>
+      <div class="skillbox"><div class="skill-label"><span>Postman</span><span>6/10</span></div><div class="skill-bar"><div class="skill-bar-fill" data-level="60%"></div></div></div>
+    </div>
+  </div>
 </section>
 
 <section id="contact">
@@ -345,7 +394,7 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
 </section>
 
 <footer>
-  @GROMOFF1337, 2025 • PortfolioPRO
+  © @GROMOFF1337, 2025 • PortfolioPRO
 </footer>
 
 <!-- Модальные окна для опыта работы -->
@@ -434,7 +483,22 @@ function toggleReview(cardElement) {
 // 4. Бургер-меню
 function toggleMenu(){document.getElementById('nav-list').classList.toggle('open');}
 
+// 5. Анимация скиллов при прокрутке
+const skillsObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const skillBars = entry.target.querySelectorAll('.skill-bar-fill');
+      skillBars.forEach(bar => {
+        bar.style.width = bar.dataset.level;
+      });
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+const competenciesSection = document.getElementById('competencies');
+if (competenciesSection) {
+  skillsObserver.observe(competenciesSection);
+}
 </script>
 </body>
 </html>
-
