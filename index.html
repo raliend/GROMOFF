@@ -71,26 +71,13 @@ nav{
     object-fit: cover;
     transition: filter 0.3s ease-in-out;
 }
-.exp-logo {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    transition: filter 0.3s ease-in-out;
-}
-.case-icon {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-    object-fit: cover;
-    border-radius: 8px;
-}
 
 /* Правило для инверсии логотипов в темной теме */
 [data-theme="dark"] #theme-logo,
 [data-theme="dark"] .exp-logo:not(.no-invert) {
     filter: invert(1) hue-rotate(180deg);
 }
+
 
 nav ul{display: flex; gap: 24px; list-style: none}
 nav li a{color: var(--primary-text); text-decoration: none; font-weight: 500; transition: .3s}
@@ -132,7 +119,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
        color: var(--accent); font-weight: 500; transition: .3s}
 .cta a:hover{background: var(--accent); color: var(--card-bg)}
 
-/* ─────────── 4. Опыт работы (интерактивные овалы) ─────────── */
+/* ─────────── 4. Опыт работы (исправленный блок) ─────────── */
 .experience-grid {
     display: flex;
     justify-content: center;
@@ -146,19 +133,20 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     border-radius: 50%;
     background-color: var(--card-bg);
     border: 2px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
-    padding: 20px;
-    overflow: hidden;
+    overflow: hidden; /* Важно для обрезки логотипа по овалу */
 }
 .experience-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.exp-logo {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Заливает овал полностью, сохраняя пропорции */
+    transition: filter 0.3s ease-in-out;
 }
 .exp-year {
     font-family: 'Montserrat';
@@ -167,13 +155,17 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     font-size: 14px;
     position: absolute;
     top: 15px;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 2px 8px;
+    left: 50%; /* Центрируем текст года */
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 3px 10px;
     border-radius: 12px;
-    z-index: 1;
+    z-index: 1; /* Поверх логотипа */
+    transition: background .3s, color .3s;
 }
 [data-theme="dark"] .exp-year {
     background: rgba(0, 0, 0, 0.7);
+    color: #ccc;
 }
 
 
@@ -214,6 +206,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .case-card{background: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.06); overflow: hidden; cursor: pointer; transition: transform .3s, background .3s;}
 .case-card:hover {transform: translateY(-5px);}
 .case-header {display: flex; gap: 20px; padding: 24px; align-items: center;}
+.case-icon { width: 80px; height: 80px; flex-shrink: 0; object-fit: cover; border-radius: 8px; }
 .case-title h3{margin: 0; font-size: 22px;}
 .case-title p {color: var(--muted-text); margin: 0;}
 .case-review {max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; padding: 0 24px; background: rgba(0,0,0,0.05);}
@@ -230,7 +223,8 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .skill-bar{background: var(--border-color); border-radius: 8px; overflow: hidden; height: 12px; transition: background 0.3s;}
 .skill-bar-fill{height: 100%; background: var(--accent); width: 0; border-radius: 8px; transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1)}
 
-/* ─────────── 7. Подвал и анимация молний ─────────── */
+/* ─────────── 7. Подвал и Контакты (отцентровано) ─────────── */
+#contact { text-align: center; }
 footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 14px}
 .lightning-container{position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;}
 .lightning{position: absolute; opacity: 0; filter: drop-shadow(0 0 10px var(--accent)); animation: thunder-strike 3s infinite ease-out;}
@@ -289,11 +283,11 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     <div class="experience-grid">
         <div class="experience-card" data-modal="rts-modal">
             <div class="exp-year">2024 – 2025</div>
-            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo">
+            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo no-invert">
         </div>
         <div class="experience-card" data-modal="tbank-modal">
             <div class="exp-year">2020 – 2023</div>
-            <img src="tlogo.jpeg" alt="Логотип Т-Банка" class="exp-logo no-invert">
+            <img src="T-LOGO.jpg" alt="Логотип Т-Банка" class="exp-logo">
         </div>
     </div>
 </section>
