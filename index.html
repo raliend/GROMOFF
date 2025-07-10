@@ -66,13 +66,15 @@ nav{
 .theme-switcher:hover { transform: scale(1.1); }
 .theme-switcher img {
     height: 24px;
-    transition: filter 0.3s ease-in-out; /* Плавный переход для фильтра */
+    transition: filter 0.3s ease-in-out;
 }
 .exp-logo {
-    height: 60px;
-    max-width: 150px;
+    max-height: 60px; /* Ограничение по высоте */
+    max-width: 150px; /* Ограничение по ширине */
+    width: auto;      /* Автоматическая ширина для сохранения пропорций */
+    height: auto;     /* Автоматическая высота */
     object-fit: contain;
-    transition: filter 0.3s ease-in-out; /* Плавный переход для фильтра */
+    transition: filter 0.3s ease-in-out;
 }
 
 /* Правило для инверсии логотипов в темной теме */
@@ -80,6 +82,7 @@ nav{
 [data-theme="dark"] .exp-logo {
     filter: invert(1) hue-rotate(180deg);
 }
+
 
 nav ul{display: flex; gap: 24px; list-style: none}
 nav li a{color: var(--primary-text); text-decoration: none; font-weight: 500; transition: .3s}
@@ -98,6 +101,7 @@ nav li a:hover{color: var(--accent)}
 /* ─────────── 3. Секции и Hero-блок (по центру) ─────────── */
 section{padding: 80px 20px; max-width: 1100px; margin: auto; position: relative}
 h2{font-family: 'Montserrat'; font-size: 28px; margin-bottom: 40px; text-align: center;}
+h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .hero{
     display: flex;
     flex-direction: column;
@@ -141,7 +145,7 @@ h2{font-family: 'Montserrat'; font-size: 28px; margin-bottom: 40px; text-align: 
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
-    padding: 10px;
+    padding: 20px;
 }
 .experience-card:hover {
     transform: translateY(-10px);
@@ -203,6 +207,8 @@ h2{font-family: 'Montserrat'; font-size: 28px; margin-bottom: 40px; text-align: 
 #about .about-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;}
 #about .about-grid h3 {color: var(--accent);}
 #about .about-grid p {font-size: 16px;}
+
+/* Кейсы (восстановленный блок) */
 .cases-grid{display: grid; grid-template-columns: 1fr; gap: 30px;}
 .case-card{background: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.06); overflow: hidden; cursor: pointer; transition: transform .3s, background .3s;}
 .case-card:hover {transform: translateY(-5px);}
@@ -215,6 +221,8 @@ h2{font-family: 'Montserrat'; font-size: 28px; margin-bottom: 40px; text-align: 
 .case-card.is-open .case-review {max-height: 500px; padding: 20px 24px;}
 .case-review blockquote {border-left: 3px solid var(--accent); padding-left: 15px; margin: 0; font-style: italic;}
 .case-review footer {text-align: right; color: var(--muted-text); font-size: 14px; font-style: normal;}
+
+/* Компетенции */
 .competencies-grid{display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;}
 .competency-block{flex: 1 1 300px; background: var(--card-bg); padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: background 0.3s;}
 .competency-block h3{color: var(--accent)}
@@ -237,8 +245,7 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
 
 <nav>
   <button class="theme-switcher" id="theme-switcher">
-    <!-- Используйте один файл, например, logo.svg или logo.png с ЧЕРНОЙ молнией -->
-    <img src="logo.svg" alt="Переключить тему" id="theme-logo">
+    <img src="logo.png" alt="Переключить тему" id="theme-logo">
   </button>
   <ul id="nav-list">
     <li><a href="#about">Обо мне</a></li>
@@ -292,15 +299,49 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     </div>
 </section>
 
-<!-- Остальные секции без изменений -->
 <section id="cases">
-    <!-- ... -->
+    <h2>Кейсы</h2>
+    <div class="cases-grid">
+        <div class="case-card" onclick="toggleReview(this)">
+            <div class="case-header">
+                <img src="rts-case.jpg" alt="RTS Board Case" class="case-icon">
+                <div class="case-title">
+                    <h3>RTS Board: Менеджмент внебиржевой системы</h3>
+                    <p>Нажмите, чтобы увидеть отзыв</p>
+                </div>
+            </div>
+            <div class="case-review">
+                <blockquote>Данила продемонстрировал выдающиеся навыки управления проектом, успешно реструктурировал команду и вывел процессы на новый уровень эффективности. Его вклад в оптимизацию бюджета был ключевым для нас.</blockquote>
+                <footer>— Руководитель департамента, НП РТС</footer>
+            </div>
+        </div>
+
+        <div class="case-card" onclick="toggleReview(this)">
+            <div class="case-header">
+                <img src="tinkoff-edu-case.jpg" alt="Tinkoff Education Case" class="case-icon">
+                <div class="case-title">
+                    <h3>Проекты обучения (Т-Банк)</h3>
+                    <p>Нажмите, чтобы увидеть отзыв</p>
+                </div>
+            </div>
+            <div class="case-review">
+                <blockquote>Программы обучения, разработанные под руководством Данилы, стали стандартом качества в нашем отделе. Он умеет находить подход к команде и превращать обучение в интересный и полезный процесс.</blockquote>
+                <footer>— Глава направления обучения, Т-Банк</footer>
+            </div>
+        </div>
+    </div>
 </section>
+
 <section id="competencies">
-    <!-- ... -->
+    <h2>Ключевые компетенции</h2>
+    <!-- ... код компетенций ... -->
 </section>
+
 <section id="contact">
-    <!-- ... -->
+    <h2>Контакты</h2>
+    <p>Москва (готов к переезду и командировкам)</p>
+     <a href="mailto:i@gromoff.pro">E-Mail</a> ·
+     <a href="https://t.me/gromoff1337" target="_blank">Telegram</a></p>
 </section>
 
 <footer>
@@ -339,25 +380,21 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
 const themeSwitcher = document.getElementById('theme-switcher');
 const body = document.body;
 
-// Функция для установки темы
 function setTheme(theme) {
     body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
 }
 
-// Слушатель для кнопки
 themeSwitcher.addEventListener('click', () => {
     const currentTheme = body.getAttribute('data-theme');
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
 });
 
-// Установка темы при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
 });
-
 
 // 2. Логика для модальных окон (Pop-up)
 const experienceCards = document.querySelectorAll('.experience-card');
@@ -389,10 +426,14 @@ modalOverlays.forEach(overlay => {
     });
 });
 
+// 3. Открытие/закрытие отзывов в кейсах
+function toggleReview(cardElement) {
+    cardElement.classList.toggle('is-open');
+}
 
-// 3. Остальной JS (бургер-меню, анимации)
+// 4. Бургер-меню
 function toggleMenu(){document.getElementById('nav-list').classList.toggle('open');}
-// ... здесь может быть ваш остальной JavaScript-код для анимаций, если он есть
+
 </script>
 </body>
 </html>
