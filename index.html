@@ -32,15 +32,19 @@ nav{
   display: flex; justify-content: space-between; align-items: center;
   background: rgba(247, 249, 251, .9); backdrop-filter: blur(6px);
   padding: 10px 30px; border-bottom: 1px solid #e0e5eb;
+  height: 70px; /* Фиксированная высота для навбара */
 }
-nav a.logo{font-family: 'Montserrat'; font-weight: 700; font-size: 20px; text-decoration: none; color: var(--primary)}
+nav a.logo img {
+    height: 40px; /* Высота вашего логотипа */
+    display: block;
+}
 nav ul{display: flex; gap: 24px; list-style: none}
 nav li a{color: var(--primary); text-decoration: none; font-weight: 500; transition: .3s}
 nav li a:hover{color: var(--accent)}
 .burger{display: none; flex-direction: column; gap: 4px; cursor: pointer}
 .burger span{width: 24px; height: 3px; background: var(--primary)}
 @media(max-width: 768px){
-  nav ul{display: none; position: absolute; top: 60px; left: 0; right: 0;
+  nav ul{display: none; position: absolute; top: 70px; /* Отступ от навбара */ left: 0; right: 0;
          flex-direction: column; gap: 16px; background: var(--bg); padding: 20px}
   nav ul.open{display: flex}
   .burger{display: flex}
@@ -136,7 +140,9 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
 <div class="lightning-container" id="lightning-container"></div>
 
 <nav>
-  <a class="logo" href="#"><img src="AVATAR.JPG" alt="Фото Данилы"></a>
+  <a class="logo" href="#">
+    <img src="logo.png" alt="Логотип">
+  </a>
   <ul id="nav-list">
     <li><a href="#about">О себе</a></li>
     <li><a href="#experience">Опыт</a></li>
@@ -148,7 +154,7 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
 </nav>
 
 <section class="hero" id="top">
-  <img src="AVATAR.JPG" alt="Фото Данилы">
+  <img src="avatar.png" alt="Фото Данилы">
   <div>
     <h1>Данила Рощупко</h1>
     <p class="role">Product / Project Manager</p>
@@ -184,9 +190,10 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
       <h3>Ассоциация НП РТС</h3>
       <span class="period">2024 – 2025</span>
       <ul>
-        <li>Руководил проектом по переводу сервисов на внутреннюю разработку.</li>
-        <li>Инициировал и запустил новые проекты на базе внебиржевой системы.</li>
+        <li>Руководил проектом по переводу ключевых сервисов на внутреннюю разработку.</li>
+        <li>Инициировал и запустил новые продукты на базе внебиржевой системы.</li>
         <li>Управлял бюджетом, контролировал сроки и качество, координировал стейкхолдеров.</li>
+        <li>Создал и внедрил единую точку доступа к рыночным данным.</li>
       </ul>
     </div>
     <div class="item">
@@ -194,9 +201,9 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
       <span class="period">2020 – 2023</span>
       <ul>
         <li>Разрабатывал и внедрял цифровые обучающие программы для персонала.</li>
-        <li>Управлял портфелем премиальных клиентов, участвовал в запуске новых продуктов и проведении сделок.</li>
+        <li>Управлял портфелем премиальных клиентов, участвовал в запуске новых продуктов.</li>
         <li>Оптимизировал внутренние процессы, внедрил структурированную базу знаний.</li>
-        <li>Создал систему наставничества для новых сотрудников и помогал в развитии культуры обучения.</li>
+        <li>Создал систему наставничества для новых сотрудников и развивал культуру обучения.</li>
       </ul>
     </div>
   </div>
@@ -209,20 +216,20 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
             <div class="case-header">
                 <img src="rts-case.jpg" alt="RTS Board Case" class="case-icon">
                 <div class="case-title">
-                    <h3>Менеджмент внебиржевой системы</h3>
+                    <h3>RTS Board: Менеджмент внебиржевой системы</h3>
                     <p>Нажмите, чтобы увидеть отзыв</p>
                 </div>
             </div>
             <div class="case-content">
                  <ul>
                     <li>Оптимизировал бюджет на разработку на 35% за счет перехода на внутренние ресурсы.</li>
-                    <li>Привлек новых эмитентов.</li>
-                    <li>Инициировал запуск новых проектов на базе системы.</li>
+                    <li>Привлек новых эмитентов путем улучшения онбординга и функциональности.</li>
+                    <li>Инициировал запуск линейки новых продуктов и проектов на базе системы.</li>
                 </ul>
             </div>
             <div class="case-review">
                 <blockquote>Данила продемонстрировал выдающиеся навыки управления проектом, успешно реструктурировал команду и вывел процессы на новый уровень эффективности. Его вклад в оптимизацию бюджета был ключевым для нас.</blockquote>
-                <footer> — Руководитель отдела, НП РТС</footer>
+                <footer>— Директор департамента, НП РТС</footer>
             </div>
         </div>
 
@@ -237,13 +244,13 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
             <div class="case-content">
                 <ul>
                     <li>Повысил NPS сотрудников на 25% и CSAT на 40% в течение 6 месяцев после обучения.</li>
-                    <li>Увеличил долю COR (Core performers) в командах на 15% за тот же период.</li>
+                    <li>Увеличил долю COR (Core performers) в командах на 10% за тот же период.</li>
                     <li>Сократил время адаптации новых сотрудников через интерактивные модули.</li>
                 </ul>
             </div>
             <div class="case-review">
                 <blockquote>Программы обучения, разработанные под руководством Данилы, стали стандартом качества в нашем отделе. Он умеет находить подход к команде и превращать обучение в интересный и полезный процесс.</blockquote>
-                <footer>— Менеджер управления обучения, Т-Банк</footer>
+                <footer>— Менеджер Координации обучения, Т-Банк</footer>
             </div>
         </div>
 
@@ -257,13 +264,13 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
             </div>
             <div class="case-content">
                 <ul>
-                    <li>Разработал новые методы выявления ошибок, увеличив скорость решния инцидентов.</li>
-                    <li>Переработал и внедрил структурированную базу знаний на базе JIRA и Confluence.</li>
                     <li>Сократил время обработки инцидентов на 30% по результатам A/B теста.</li>
+                    <li>Разработал и внедрил структурированную базу знаний на базе JIRA и Confluence.</li>
+                    <li>Создал систему проактивного мониторинга аномалий, снизив число критических сбоев.</li>
                 </ul>
             </div>
             <div class="case-review">
-                <blockquote>Благодаря инициативам Данилы по оптимизации мы смогли значительно ускорить решение технических проблем. Его аналитический склад ума и умение работать с логами были незаменимы.</blockquote>
+                <blockquote>Благодаря инициативе Данилы по оптимизации бэк-офиса мы смогли значительно ускорить решение технических проблем. Его аналитический склад ума и умение работать с логами были незаменимы.</blockquote>
                 <footer>— Руководитель Private Invest, Т-Банк</footer>
             </div>
         </div>
@@ -305,7 +312,7 @@ footer{text-align: center; padding: 30px; color: var(--muted); font-size: 14px}
 </section>
 
 <footer>
-  © @ODIN337, 2025 • Сайт-визитка
+  © Данила Рощупко, 2025 • Сайт-резюме
 </footer>
 
 <script>
@@ -357,3 +364,4 @@ function toggleReview(cardElement) {
 </script>
 </body>
 </html>
+
