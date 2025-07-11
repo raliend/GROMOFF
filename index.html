@@ -81,7 +81,7 @@ nav{
 
 /* Правило для инверсии логотипов в темной теме */
 [data-theme="dark"] #theme-logo,
-[data-theme="dark"] .exp-logo:not(.no-invert) { /* Исключаем логотипы с классом no-invert */
+[data-theme="dark"] .exp-logo:not(.no-invert) {
     filter: invert(1) hue-rotate(180deg);
 }
 
@@ -125,7 +125,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
        color: var(--accent); font-weight: 500; transition: .3s}
 .cta a:hover{background: var(--accent); color: var(--card-bg)}
 
-/* ─────────── 4. Опыт работы (исправленный блок) ─────────── */
+/* ─────────── 4. Опыт работы (интерактивные овалы) ─────────── */
 .experience-grid {
     display: flex;
     justify-content: center;
@@ -135,14 +135,14 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 }
 .experience-card {
     width: 200px;
-    height: 200px; /* Делаем круглым */
+    height: 200px;
     border-radius: 50%;
     background-color: var(--card-bg);
     border: 2px solid var(--border-color);
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
-    overflow: hidden; /* Важно для обрезки логотипа */
+    overflow: hidden;
 }
 .experience-card:hover {
     transform: translateY(-10px);
@@ -151,7 +151,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .exp-logo {
     height: 100%;
     width: 100%;
-    object-fit: cover; /* Заливает круг, сохраняя пропорции */
+    object-fit: cover;
     transition: filter 0.3s ease-in-out;
 }
 .exp-year {
@@ -166,8 +166,9 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     background: rgba(255, 255, 255, 0.8);
     padding: 3px 10px;
     border-radius: 12px;
-    z-index: 1; /* Поверх логотипа */
+    z-index: 1;
     transition: background .3s, color .3s;
+    width: max-content; /* Уменьшаем блок по ширине текста */
 }
 [data-theme="dark"] .exp-year {
     background: rgba(0, 0, 0, 0.7);
@@ -232,8 +233,20 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 #contact { text-align: center; }
 footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 14px}
 .lightning-container{position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;}
-.lightning{position: absolute; opacity: 0; filter: drop-shadow(0 0 10px var(--accent)); animation: thunder-strike 3s infinite ease-out;}
-@keyframes thunder-strike { 0%, 100% { opacity: 0; } 50% { opacity: 0.7; } }
+.lightning{
+    position: absolute;
+    opacity: 0;
+    filter: drop-shadow(0 0 10px var(--accent));
+    animation: thunder-strike 4s infinite ease-out;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%2329C6B9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+@keyframes thunder-strike { 0%, 100% { opacity: 0; transform: translateY(-30px); } 50% { opacity: 0.6; transform: translateY(0px); } }
+/* Отключаем молнии на мобильных */
+@media(max-width: 768px){
+    .lightning-container { display: none; }
+}
 </style>
 </head>
 
@@ -288,7 +301,7 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     <div class="experience-grid">
         <div class="experience-card" data-modal="rts-modal">
             <span class="exp-year">2024 – 2025</span>
-            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo no-invert">
+            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo">
         </div>
         <div class="experience-card" data-modal="tbank-modal">
             <span class="exp-year">2020 – 2023</span>
@@ -483,7 +496,26 @@ const competenciesSection = document.getElementById('competencies');
 if (competenciesSection) {
   skillsObserver.observe(competenciesSection);
 }
+
+// 6. Генерация молний
+const lightningContainer = document.getElementById('lightning-container');
+if (lightningContainer) {
+    for (let i = 0; i < 7; i++) {
+        const lightning = document.createElement('div');
+        lightning.className = 'lightning';
+        
+        const side = Math.random() < 0.5 ? 'left' : 'right';
+        const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80;
+
+        lightning.style.left = `${xPos}vw`;
+        lightning.style.top = `${Math.random() * 100}vh`;
+        lightning.style.width = `${Math.random() * 30 + 40}px`;
+        lightning.style.height = `${Math.random() * 60 + 50}px`;
+        lightning.style.animationDelay = `${Math.random() * 4}s`;
+        lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
+        lightningContainer.appendChild(lightning);
+    }
+}
 </script>
 </body>
 </html>
-
