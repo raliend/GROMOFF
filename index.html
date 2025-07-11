@@ -243,7 +243,7 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     background-image: url('data:image/svg+xml;utf8,<svg fill="%2329C6B9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>');
     background-repeat: no-repeat;
     background-size: contain;
-    transition: transform 0.4s ease-out; /* Плавное движение от курсора */
+    transition: transform 0.4s ease-out;
 }
 @keyframes thunder-strike { 0%, 100% { opacity: 0; } 50% { opacity: 0.6; } }
 
@@ -305,7 +305,7 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     <div class="experience-grid">
         <div class="experience-card" data-modal="rts-modal">
             <span class="exp-year">2024 – 2025</span>
-            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo">
+            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo no-invert">
         </div>
         <div class="experience-card" data-modal="tbank-modal">
             <span class="exp-year">2020 – 2023</span>
@@ -503,14 +503,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Генерация и анимация молний
     const lightningContainer = document.getElementById('lightning-container');
     const lightnings = [];
+    const numLightnings = 15; // Увеличено количество молний
 
     if (lightningContainer) {
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < numLightnings; i++) {
             const lightning = document.createElement('div');
             lightning.className = 'lightning';
             
             const side = Math.random() < 0.5 ? 'left' : 'right';
-            const xPos = side === 'left' ? Math.random() * 15 : Math.random() * 15 + 85;
+            const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; // 0-20% или 80-100% ширины экрана
 
             lightning.style.left = `${xPos}vw`;
             lightning.style.top = `${Math.random() * 100}vh`;
@@ -525,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener('mousemove', (e) => {
-        if (window.innerWidth <= 768) return; // Не анимировать на мобильных
+        if (window.innerWidth <= 768) return;
 
         const { clientX, clientY } = e;
 
@@ -553,3 +554,4 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
+
