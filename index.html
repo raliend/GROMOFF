@@ -168,7 +168,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     border-radius: 12px;
     z-index: 1;
     transition: background .3s, color .3s;
-    width: max-content; /* Уменьшаем блок по ширине текста */
+    width: max-content;
 }
 [data-theme="dark"] .exp-year {
     background: rgba(0, 0, 0, 0.7);
@@ -232,6 +232,8 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 /* ─────────── 7. Подвал и Контакты (отцентровано) ─────────── */
 #contact { text-align: center; }
 footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 14px}
+
+/* ─────────── 8. Анимация молний ─────────── */
 .lightning-container{position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;}
 .lightning{
     position: absolute;
@@ -241,8 +243,10 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     background-image: url('data:image/svg+xml;utf8,<svg fill="%2329C6B9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>');
     background-repeat: no-repeat;
     background-size: contain;
+    transition: transform 0.4s ease-out; /* Плавное движение от курсора */
 }
-@keyframes thunder-strike { 0%, 100% { opacity: 0; transform: translateY(-30px); } 50% { opacity: 0.6; transform: translateY(0px); } }
+@keyframes thunder-strike { 0%, 100% { opacity: 0; } 50% { opacity: 0.6; } }
+
 /* Отключаем молнии на мобильных */
 @media(max-width: 768px){
     .lightning-container { display: none; }
@@ -422,100 +426,130 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
 </div>
 
 <script>
-// 1. Переключатель тем
-const themeSwitcher = document.getElementById('theme-switcher');
-const body = document.body;
-
-function setTheme(theme) {
-    body.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-}
-
-themeSwitcher.addEventListener('click', () => {
-    const currentTheme = body.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-});
-
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Переключатель тем
+    const themeSwitcher = document.getElementById('theme-switcher');
+    const body = document.body;
+
+    function setTheme(theme) {
+        body.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+    }
+
+    themeSwitcher.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+    });
+
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
-});
 
-// 2. Логика для модальных окон (Pop-up)
-const experienceCards = document.querySelectorAll('.experience-card');
-const modalOverlays = document.querySelectorAll('.modal-overlay');
-const modalCloseButtons = document.querySelectorAll('.modal-close');
+    // 2. Логика для модальных окон (Pop-up)
+    const experienceCards = document.querySelectorAll('.experience-card');
+    const modalOverlays = document.querySelectorAll('.modal-overlay');
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
 
-experienceCards.forEach(card => {
-    card.addEventListener('click', () => {
-        const modalId = card.getAttribute('data-modal');
-        document.getElementById(modalId).classList.add('is-visible');
+    experienceCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const modalId = card.getAttribute('data-modal');
+            document.getElementById(modalId).classList.add('is-visible');
+        });
     });
-});
 
-function closeModal() {
+    function closeModal() {
+        modalOverlays.forEach(overlay => {
+            overlay.classList.remove('is-visible');
+        });
+    }
+
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', closeModal);
+    });
+
     modalOverlays.forEach(overlay => {
-        overlay.classList.remove('is-visible');
+        overlay.addEventListener('click', (event) => {
+            if (event.target === overlay) {
+                closeModal();
+            }
+        });
     });
-}
 
-modalCloseButtons.forEach(button => {
-    button.addEventListener('click', closeModal);
-});
+    // 3. Открытие/закрытие отзывов в кейсах
+    window.toggleReview = function(cardElement) {
+        cardElement.classList.toggle('is-open');
+    }
 
-modalOverlays.forEach(overlay => {
-    overlay.addEventListener('click', (event) => {
-        if (event.target === overlay) {
-            closeModal();
+    // 4. Бургер-меню
+    window.toggleMenu = function(){document.getElementById('nav-list').classList.toggle('open');}
+
+    // 5. Анимация скиллов при прокрутке
+    const skillsObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const skillBars = entry.target.querySelectorAll('.skill-bar-fill');
+          skillBars.forEach(bar => {
+            bar.style.width = bar.dataset.level;
+          });
+          observer.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.3 });
+    const competenciesSection = document.getElementById('competencies');
+    if (competenciesSection) {
+      skillsObserver.observe(competenciesSection);
+    }
+
+    // 6. Генерация и анимация молний
+    const lightningContainer = document.getElementById('lightning-container');
+    const lightnings = [];
+
+    if (lightningContainer) {
+        for (let i = 0; i < 7; i++) {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            
+            const side = Math.random() < 0.5 ? 'left' : 'right';
+            const xPos = side === 'left' ? Math.random() * 15 : Math.random() * 15 + 85;
+
+            lightning.style.left = `${xPos}vw`;
+            lightning.style.top = `${Math.random() * 100}vh`;
+            lightning.style.width = `${Math.random() * 30 + 40}px`;
+            lightning.style.height = `${Math.random() * 60 + 50}px`;
+            lightning.style.animationDelay = `${Math.random() * 5}s`;
+            lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            
+            lightningContainer.appendChild(lightning);
+            lightnings.push(lightning);
+        }
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return; // Не анимировать на мобильных
+
+        const { clientX, clientY } = e;
+
+        lightnings.forEach(bolt => {
+            const rect = bolt.getBoundingClientRect();
+            const boltCenterX = rect.left + rect.width / 2;
+            const boltCenterY = rect.top + rect.height / 2;
+
+            const deltaX = clientX - boltCenterX;
+            const deltaY = clientY - boltCenterY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            const maxDist = 150;
+            if (distance < maxDist) {
+                const force = (maxDist - distance) / maxDist;
+                const moveX = -deltaX * force * 0.5;
+                const moveY = -deltaY * force * 0.5;
+                bolt.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            } else {
+                bolt.style.transform = `translate(0, 0)`;
+            }
+        });
     });
 });
-
-// 3. Открытие/закрытие отзывов в кейсах
-function toggleReview(cardElement) {
-    cardElement.classList.toggle('is-open');
-}
-
-// 4. Бургер-меню
-function toggleMenu(){document.getElementById('nav-list').classList.toggle('open');}
-
-// 5. Анимация скиллов при прокрутке
-const skillsObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const skillBars = entry.target.querySelectorAll('.skill-bar-fill');
-      skillBars.forEach(bar => {
-        bar.style.width = bar.dataset.level;
-      });
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-const competenciesSection = document.getElementById('competencies');
-if (competenciesSection) {
-  skillsObserver.observe(competenciesSection);
-}
-
-// 6. Генерация молний
-const lightningContainer = document.getElementById('lightning-container');
-if (lightningContainer) {
-    for (let i = 0; i < 7; i++) {
-        const lightning = document.createElement('div');
-        lightning.className = 'lightning';
-        
-        const side = Math.random() < 0.5 ? 'left' : 'right';
-        const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80;
-
-        lightning.style.left = `${xPos}vw`;
-        lightning.style.top = `${Math.random() * 100}vh`;
-        lightning.style.width = `${Math.random() * 30 + 40}px`;
-        lightning.style.height = `${Math.random() * 60 + 50}px`;
-        lightning.style.animationDelay = `${Math.random() * 4}s`;
-        lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
-        lightningContainer.appendChild(lightning);
-    }
-}
 </script>
 </body>
 </html>
