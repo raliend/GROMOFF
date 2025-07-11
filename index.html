@@ -71,13 +71,19 @@ nav{
     object-fit: cover;
     transition: filter 0.3s ease-in-out;
 }
+.case-icon {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 8px;
+}
 
 /* Правило для инверсии логотипов в темной теме */
 [data-theme="dark"] #theme-logo,
 [data-theme="dark"] .exp-logo:not(.no-invert) {
     filter: invert(1) hue-rotate(180deg);
 }
-
 
 nav ul{display: flex; gap: 24px; list-style: none}
 nav li a{color: var(--primary-text); text-decoration: none; font-weight: 500; transition: .3s}
@@ -119,7 +125,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
        color: var(--accent); font-weight: 500; transition: .3s}
 .cta a:hover{background: var(--accent); color: var(--card-bg)}
 
-/* ─────────── 4. Опыт работы (исправленный блок) ─────────── */
+/* ─────────── 4. Опыт работы (интерактивные овалы) ─────────── */
 .experience-grid {
     display: flex;
     justify-content: center;
@@ -136,7 +142,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
     position: relative;
-    overflow: hidden; /* Важно для обрезки логотипа по овалу */
+    overflow: hidden;
 }
 .experience-card:hover {
     transform: translateY(-10px);
@@ -145,7 +151,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .exp-logo {
     height: 100%;
     width: 100%;
-    object-fit: cover; /* Заливает овал полностью, сохраняя пропорции */
+    object-fit: cover;
     transition: filter 0.3s ease-in-out;
 }
 .exp-year {
@@ -155,12 +161,12 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     font-size: 14px;
     position: absolute;
     top: 15px;
-    left: 50%; /* Центрируем текст года */
+    left: 50%;
     transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.8);
     padding: 3px 10px;
     border-radius: 12px;
-    z-index: 1; /* Поверх логотипа */
+    z-index: 1;
     transition: background .3s, color .3s;
 }
 [data-theme="dark"] .exp-year {
@@ -206,7 +212,6 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .case-card{background: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.06); overflow: hidden; cursor: pointer; transition: transform .3s, background .3s;}
 .case-card:hover {transform: translateY(-5px);}
 .case-header {display: flex; gap: 20px; padding: 24px; align-items: center;}
-.case-icon { width: 80px; height: 80px; flex-shrink: 0; object-fit: cover; border-radius: 8px; }
 .case-title h3{margin: 0; font-size: 22px;}
 .case-title p {color: var(--muted-text); margin: 0;}
 .case-review {max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; padding: 0 24px; background: rgba(0,0,0,0.05);}
@@ -283,11 +288,11 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     <div class="experience-grid">
         <div class="experience-card" data-modal="rts-modal">
             <div class="exp-year">2024 – 2025</div>
-            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo no-invert">
+            <img src="nplogo.jpg" alt="Логотип НП РТС" class="exp-logo">
         </div>
         <div class="experience-card" data-modal="tbank-modal">
             <div class="exp-year">2020 – 2023</div>
-            <img src="T-LOGO.jpg" alt="Логотип Т-Банка" class="exp-logo">
+            <img src="T-LOGO.jpg" alt="Логотип Т-Банка" class="exp-logo no-invert">
         </div>
     </div>
 </section>
