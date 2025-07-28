@@ -280,9 +280,26 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .cases-grid{display: grid; grid-template-columns: 1fr; gap: 30px;}
 .case-card{background: var(--card-bg); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.06); overflow: hidden; cursor: pointer; transition: transform .3s, background .3s;}
 .case-card:hover {transform: translateY(-5px);}
-.case-header {display: flex; gap: 20px; padding: 24px; align-items: center;}
-.case-title h3{margin: 0; font-size: 22px;}
-.case-title p {color: var(--muted-text); margin: 0;}
+.case-header {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    align-items: center;
+}
+.case-title {
+    display: flex; /* Делаем его flex-контейнером */
+    flex-direction: column; /* Элементы будут располагаться друг под другом */
+    align-items: flex-start; /* Выравнивание по левому краю */
+}
+.case-title h3{
+    margin: 0;
+    font-size: 22px;
+}
+.case-title p {
+    color: var(--muted-text);
+    margin: 0; /* Убираем стандартные отступы, если они есть */
+    line-height: 1.2; /* Немного уменьшим межстрочный интервал для плотности */
+}
 .case-review {max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out, padding 0.5s ease-out; padding: 0 24px; background: rgba(0,0,0,0.05);}
 [data-theme="dark"] .case-review { background: rgba(255,255,255,0.05); }
 .case-card.is-open .case-review {max-height: 500px; padding: 20px 24px;}
