@@ -23,19 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
     setTheme(savedTheme);
 
     // 2. Логика переключения языка и загрузки контента
-    // Default language is English. Set 'ru' as default if you prefer.
     let currentLang = localStorage.getItem('resumeLang') || 'en';
 
-    // Set initial toggle state based on currentLang
     if (currentLang === 'ru') {
-        languageToggle.checked = true; // 'true' means Russian (toggled)
-        body.lang = 'ru'; // Устанавливаем lang атрибут на body
+        languageToggle.checked = true;
+        body.lang = 'ru';
     } else {
-        languageToggle.checked = false; // 'false' means English (default)
-        body.lang = 'en'; // Устанавливаем lang атрибут на body
+        languageToggle.checked = false;
+        body.lang = 'en';
     }
 
-    // Function to update language labels visually
     function updateLanguageLabels() {
         if (currentLang === 'en') {
             langLabelEn.style.fontWeight = 'bold';
@@ -50,26 +47,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to load resume data
     async function loadResume(lang) {
-        resumeContent.innerHTML = '<p id="loading-message">Загрузка резюме...</p>'; // Show loading message
+        resumeContent.innerHTML = '<p id="loading-message">Загрузка резюме...</p>';
         try {
             const response = await fetch(`./resume-data/${lang}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            renderResume(data, lang);
-            updateModalContent(data.modals); // Обновляем текст в модальных окнах
-            updateNavLinks(data.nav); // Обновляем текст в навигации
+            renderResume(data);
+            updateModalContent(data.modals);
+            updateNavLinks(data.nav);
         } catch (error) {
             console.error('Failed to load resume data:', error);
             resumeContent.innerHTML = `<p style="color: red;">Ошибка загрузки резюме. Пожалуйста, попробуйте позже. (${error.message})</p>`;
         }
     }
 
-    // Function to render resume data into HTML
-    function renderResume(data, lang) {
+    function renderResume(data) {
         let html = '';
 
         // Hero Section
@@ -207,28 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Re-initialize dynamic elements after content is loaded
         initSkillsAnimation();
-        initExperienceCardModals(); // Re-attach listeners for experience cards
+        initExperienceCardModals();
     }
 
-    // Function to update modal content based on current language
     function updateModalContent(modalData) {
-        // RTS Modal
-        document.querySelector('#rts-modal h3').textContent = modalData.rts.title;
+        document.querySelector('#rts-modal h3[data-key="rtsModalTitle"]').textContent = modalData.rts.title;
         document.querySelector('#rts-modal li[data-key="rtsModalItem1"]').textContent = modalData.rts.items[0];
         document.querySelector('#rts-modal li[data-key="rtsModalItem2"]').textContent = modalData.rts.items[1];
         document.querySelector('#rts-modal li[data-key="rtsModalItem3"]').textContent = modalData.rts.items[2];
         document.querySelector('#rts-modal li[data-key="rtsModalItem4"]').textContent = modalData.rts.items[3];
 
-        // T-Bank Modal
-        document.querySelector('#tbank-modal h3').textContent = modalData.tbank.title;
+        document.querySelector('#tbank-modal h3[data-key="tbankModalTitle"]').textContent = modalData.tbank.title;
         document.querySelector('#tbank-modal li[data-key="tbankModalItem1"]').textContent = modalData.tbank.items[0];
         document.querySelector('#tbank-modal li[data-key="tbankModalItem2"]').textContent = modalData.tbank.items[1];
         document.querySelector('#tbank-modal li[data-key="tbankModalItem3"]').textContent = modalData.tbank.items[2];
         document.querySelector('#tbank-modal li[data-key="tbankModalItem4"]').textContent = modalData.tbank.items[3];
     }
 
-    // Function to update navigation links based on current language
     function updateNavLinks(navData) {
+        document.querySelector('a[data-section="top"]').textContent = navData.top;
         document.querySelector('a[data-section="about"]').textContent = navData.about;
         document.querySelector('a[data-section="experience"]').textContent = navData.experience;
         document.querySelector('a[data-section="cases"]').textContent = navData.cases;
@@ -236,8 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('a[data-section="contact"]').textContent = navData.contact;
     }
 
-
-    // Event listener for language toggle
     languageToggle.addEventListener('change', () => {
         if (languageToggle.checked) {
             currentLang = 'ru';
@@ -246,33 +236,50 @@ document.addEventListener('DOMContentLoaded', () => {
             currentLang = 'en';
             body.lang = 'en';
         }
-        localStorage.setItem('resumeLang', currentLang); // Save preference
+        localStorage.setItem('resumeLang', currentLang);
         updateLanguageLabels();
         loadResume(currentLang);
     });
 
-    // Initial load based on stored preference or default
-    updateLanguageLabels(); // Set initial label styles
+    updateLanguageLabels();
     loadResume(currentLang);
 
-    // 3. Логика для модальных окон (Pop-up) - перенесена в функцию для повторного вызова
+    // 3. Логика для модальных окон (Pop-up)
     function initExperienceCardModals() {
+        // Удаляем все предыдущие обработчики событий, чтобы избежать дублирования
+        document.querySelectorAll('.experience-card').forEach(card => {
+            const oldClickListener = card.__handleClick__;
+            if (oldClickListener) {
+                card.removeEventListener('click', oldClickListener);
+                delete card.__handleClick__;
+            }
+        });
+        document.querySelectorAll('.modal-close').forEach(button => {
+            const oldClickListener = button.__handleClick__;
+            if (oldClickListener) {
+                button.removeEventListener('click', oldClickListener);
+                delete button.__handleClick__;
+            }
+        });
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            const oldClickListener = overlay.__handleClick__;
+            if (oldClickListener) {
+                overlay.removeEventListener('click', oldClickListener);
+                delete overlay.__handleClick__;
+            }
+        });
+
         const experienceCards = document.querySelectorAll('.experience-card');
         const modalOverlays = document.querySelectorAll('.modal-overlay');
         const modalCloseButtons = document.querySelectorAll('.modal-close');
 
-        // Remove existing listeners to prevent duplicates
         experienceCards.forEach(card => {
-            const oldClickListener = card.__handleClick__;
-            if (oldClickListener) {
-                card.removeEventListener('click', oldClickListener);
-            }
             const newClickListener = () => {
                 const modalId = card.getAttribute('data-modal');
                 document.getElementById(modalId).classList.add('is-visible');
             };
             card.addEventListener('click', newClickListener);
-            card.__handleClick__ = newClickListener; // Store reference
+            card.__handleClick__ = newClickListener; // Сохраняем ссылку на обработчик
         });
 
         function closeModal() {
@@ -282,20 +289,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         modalCloseButtons.forEach(button => {
-            const oldClickListener = button.__handleClick__;
-            if (oldClickListener) {
-                button.removeEventListener('click', oldClickListener);
-            }
             const newClickListener = closeModal;
             button.addEventListener('click', newClickListener);
             button.__handleClick__ = newClickListener;
         });
 
         modalOverlays.forEach(overlay => {
-            const oldClickListener = overlay.__handleClick__;
-            if (oldClickListener) {
-                overlay.removeEventListener('click', oldClickListener);
-            }
             const newClickListener = (event) => {
                 if (event.target === overlay) {
                     closeModal();
@@ -306,7 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     // 4. Открытие/закрытие отзывов в кейсах (Global function)
     window.toggleReview = function(cardElement) {
         cardElement.classList.toggle('is-open');
@@ -315,9 +313,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Бургер-меню (Global function)
     window.toggleMenu = function(){document.getElementById('nav-list').classList.toggle('open');}
 
-    // 6. Анимация скиллов при прокрутке - перенесена в функцию для повторного вызова
+    // 6. Анимация скиллов при прокрутке
+    let skillsObserver; // Объявляем переменную здесь, чтобы она была доступна в initSkillsAnimation
+
     function initSkillsAnimation() {
-        const skillsObserver = new IntersectionObserver((entries, observer) => {
+        // Отключаем предыдущий наблюдатель, если он существует
+        if (skillsObserver) {
+            skillsObserver.disconnect();
+        }
+
+        skillsObserver = new IntersectionObserver((entries, observer) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               const skillBars = entry.target.querySelectorAll('.skill-bar-fill');
@@ -335,53 +340,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 7. Генерация и анимация молний
-const lightningContainer = document.getElementById('lightning-container');
-const lightnings = [];
-const numLightnings = 15; // Увеличено количество молний
+    const lightningContainer = document.getElementById('lightning-container');
+    const lightnings = [];
+    const numLightnings = 15;
 
-if (lightningContainer) {
-    for (let i = 0; i < numLightnings; i++) {
-        const lightning = document.createElement('div');
-        lightning.className = 'lightning';
-        
-        const side = Math.random() < 0.5 ? 'left' : 'right';
-        const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; 
+    if (lightningContainer) {
+        for (let i = 0; i < numLightnings; i++) {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            
+            const side = Math.random() < 0.5 ? 'left' : 'right';
+            const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; 
 
-        lightning.style.left = `${xPos}vw`;
-        lightning.style.top = `${Math.random() * 100}vh`;
-        // Responsive sizes instead of fixed px
-        lightning.style.width = `${5 + Math.random() * 3}vw`;
-        lightning.style.height = `${7 + Math.random() * 5}vh`;
-        lightning.style.animationDelay = `${Math.random() * 5}s`;
-        lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
-        
-        lightningContainer.appendChild(lightning);
-        lightnings.push(lightning);
-    }
-}
-
-document.addEventListener('mousemove', (e) => {
-    if (window.innerWidth <= 768) return;
-
-    const { clientX, clientY } = e;
-
-    lightnings.forEach(bolt => {
-        const rect = bolt.getBoundingClientRect();
-        const boltCenterX = rect.left + rect.width / 2;
-        const boltCenterY = rect.top + rect.height / 2;
-
-        const deltaX = clientX - boltCenterX;
-        const deltaY = clientY - boltCenterY;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-        const maxDist = 150;
-        if (distance < maxDist) {
-            const force = (maxDist - distance) / maxDist;
-            const moveX = -deltaX * force * 0.5;
-            const moveY = -deltaY * force * 0.5;
-            bolt.style.transform = `translate(${moveX}px, ${moveY}px)`;
-        } else {
-            bolt.style.transform = `translate(0, 0)`;
+            lightning.style.left = `${xPos}vw`;
+            lightning.style.top = `${Math.random() * 100}vh`;
+            lightning.style.width = `${5 + Math.random() * 3}vw`;
+            lightning.style.height = `${7 + Math.random() * 5}vh`;
+            lightning.style.animationDelay = `${Math.random() * 5}s`;
+            lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            
+            lightningContainer.appendChild(lightning);
+            lightnings.push(lightning);
         }
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return;
+
+        const { clientX, clientY } = e;
+
+        lightnings.forEach(bolt => {
+            const rect = bolt.getBoundingClientRect();
+            const boltCenterX = rect.left + rect.width / 2;
+            const boltCenterY = rect.top + rect.height / 2;
+
+            const deltaX = clientX - boltCenterX;
+            const deltaY = clientY - boltCenterY;
+            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            const maxDist = 150;
+            if (distance < maxDist) {
+                const force = (maxDist - distance) / maxDist;
+                const moveX = -deltaX * force * 0.5;
+                const moveY = -deltaY * force * 0.5;
+                bolt.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            } else {
+                bolt.style.transform = `translate(0, 0)`;
+            }
+        });
     });
 });
