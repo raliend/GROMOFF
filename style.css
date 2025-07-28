@@ -263,9 +263,9 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 .exp-logo {
-    max-height: 80%; /* Уменьшаем размер логотипа, чтобы он вписывался в круг */
-    max-width: 80%;
-    object-fit: contain; /* Используем contain для сохранения пропорций */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* changed from contain to cover */
     transition: filter 0.3s ease-in-out;
 }
 .exp-year {
@@ -350,8 +350,16 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 14px}
 
 /* ─────────── 8. Анимация молний ─────────── */
-.lightning-container{position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;}
-.lightning{
+.lightning-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+.lightning {
     position: absolute;
     opacity: 0;
     filter: drop-shadow(0 0 10px var(--accent));
@@ -360,6 +368,8 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
     background-repeat: no-repeat;
     background-size: contain;
     transition: transform 0.4s ease-out;
+    width: 8vw; /* responsive width */
+    height: 10vh; /* responsive height */
 }
 @keyframes thunder-strike { 0%, 100% { opacity: 0; } 50% { opacity: 0.6; } }
 
