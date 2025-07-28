@@ -335,53 +335,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 7. Генерация и анимация молний
-    const lightningContainer = document.getElementById('lightning-container');
-    const lightnings = [];
-    const numLightnings = 15; // Увеличено количество молний
+const lightningContainer = document.getElementById('lightning-container');
+const lightnings = [];
+const numLightnings = 15; // Увеличено количество молний
 
-    if (lightningContainer) {
-        for (let i = 0; i < numLightnings; i++) {
-            const lightning = document.createElement('div');
-            lightning.className = 'lightning';
-            
-            const side = Math.random() < 0.5 ? 'left' : 'right';
-            const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; // 0-20% или 80-100% ширины экрана
+if (lightningContainer) {
+    for (let i = 0; i < numLightnings; i++) {
+        const lightning = document.createElement('div');
+        lightning.className = 'lightning';
+        
+        const side = Math.random() < 0.5 ? 'left' : 'right';
+        const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; 
 
-            lightning.style.left = `${xPos}vw`;
-            lightning.style.top = `${Math.random() * 100}vh`;
-            lightning.style.width = `${Math.random() * 30 + 40}px`;
-            lightning.style.height = `${Math.random() * 60 + 50}px`;
-            lightning.style.animationDelay = `${Math.random() * 5}s`;
-            lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            
-            lightningContainer.appendChild(lightning);
-            lightnings.push(lightning);
-        }
+        lightning.style.left = `${xPos}vw`;
+        lightning.style.top = `${Math.random() * 100}vh`;
+        // Responsive sizes instead of fixed px
+        lightning.style.width = `${5 + Math.random() * 3}vw`;
+        lightning.style.height = `${7 + Math.random() * 5}vh`;
+        lightning.style.animationDelay = `${Math.random() * 5}s`;
+        lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
+        
+        lightningContainer.appendChild(lightning);
+        lightnings.push(lightning);
     }
+}
 
-    document.addEventListener('mousemove', (e) => {
-        if (window.innerWidth <= 768) return;
+document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth <= 768) return;
 
-        const { clientX, clientY } = e;
+    const { clientX, clientY } = e;
 
-        lightnings.forEach(bolt => {
-            const rect = bolt.getBoundingClientRect();
-            const boltCenterX = rect.left + rect.width / 2;
-            const boltCenterY = rect.top + rect.height / 2;
+    lightnings.forEach(bolt => {
+        const rect = bolt.getBoundingClientRect();
+        const boltCenterX = rect.left + rect.width / 2;
+        const boltCenterY = rect.top + rect.height / 2;
 
-            const deltaX = clientX - boltCenterX;
-            const deltaY = clientY - boltCenterY;
-            const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        const deltaX = clientX - boltCenterX;
+        const deltaY = clientY - boltCenterY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-            const maxDist = 150;
-            if (distance < maxDist) {
-                const force = (maxDist - distance) / maxDist;
-                const moveX = -deltaX * force * 0.5;
-                const moveY = -deltaY * force * 0.5;
-                bolt.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            } else {
-                bolt.style.transform = `translate(0, 0)`;
-            }
-        });
+        const maxDist = 150;
+        if (distance < maxDist) {
+            const force = (maxDist - distance) / maxDist;
+            const moveX = -deltaX * force * 0.5;
+            const moveY = -deltaY * force * 0.5;
+            bolt.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        } else {
+            bolt.style.transform = `translate(0, 0)`;
+        }
     });
 });
