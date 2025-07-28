@@ -1,6 +1,7 @@
 {
     "personalInfo": {
-        "name": "Данила Рощупко",
+        "firstName": "Данила",
+        "lastName": "Рощупко",
         "title": "Product / Project Manager"
     },
     "hero": {
@@ -67,7 +68,7 @@
     },
     "competencies": [
         {
-            "category": "Data & Tech",
+            "category": "Работа с данными",
             "skills": [
                 {"name": "SQL", "level": "9/10", "percentage": "90%"},
                 {"name": "Python (Pandas)", "level": "7/10", "percentage": "70%"},
@@ -92,12 +93,20 @@
                 {"name": "BPMN / UML", "level": "8/10", "percentage": "80%"},
                 {"name": "Postman", "level": "6/10", "percentage": "60%"}
             ]
+        },
+        {
+            "category": "Технические навыки",
+            "skills": [
+                {"name": "JavaScript", "level": "2/10", "percentage": "20%"},
+                {"name": "HTML", "level": "9/10", "percentage": "90%"},
+                {"name": "Python", "level": "8/10", "percentage": "80%"},
+                {"name": "Kotlin", "level": "2/10", "percentage": "20%"}
+            ]
         }
     ],
     "contact": {
-        "location": "Москва (готов к переезду и командировкам)",
         "email": "i@gromoff.pro",
-        "emailLabel": "E-Mail",
+        "emailLabel": "Email",
         "telegramLink": "https://t.me/gromoff1337",
         "telegramLabel": "Telegram"
     },
