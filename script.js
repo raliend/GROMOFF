@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hero Section
         html += `
             <section class="hero" id="top">
-              <img src="avatar.png" alt="${data.hero.avatarAlt}" class="avatar">
-              <h1>${data.personalInfo.name}</h1>
+              <img src="icon-data/avatar.png" alt="${data.hero.avatarAlt}" class="avatar">
+              <h1>${data.personalInfo.firstName}</h1> <!-- Только имя -->
               <p class="role">${data.personalInfo.title}</p>
               <div class="cta">
                 <a href="#contact">${data.hero.contactButton}</a>
@@ -108,11 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="experience-grid">
                     <div class="experience-card" data-modal="rts-modal">
                         <span class="exp-year">${data.experience.rts.dates}</span>
-                        <img src="nplogo.jpg" alt="${data.experience.rts.alt}" class="exp-logo no-invert">
+                        <img src="icon-data/nplogo.jpg" alt="${data.experience.rts.alt}" class="exp-logo no-invert">
                     </div>
                     <div class="experience-card" data-modal="tbank-modal">
                         <span class="exp-year">${data.experience.tbank.dates}</span>
-                        <img src="T-LOGO.jpg" alt="${data.experience.tbank.alt}" class="exp-logo no-invert">
+                        <img src="icon-data/T-LOGO.jpg" alt="${data.experience.tbank.alt}" class="exp-logo no-invert">
                     </div>
                 </div>
             </section>
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="cases-grid">
                     <div class="case-card" onclick="toggleReview(this)">
                         <div class="case-header">
-                            <img src="rts-case.jpg" alt="${data.cases.rts.imageAlt}" class="case-icon">
+                            <img src="icon-data/rts-case.jpg" alt="${data.cases.rts.imageAlt}" class="case-icon">
                             <div class="case-title">
                                 <h3>${data.cases.rts.title}</h3>
                                 <p>${data.cases.rts.clickToSee}</p>
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div class="case-card" onclick="toggleReview(this)">
                         <div class="case-header">
-                            <img src="tinkoff-edu-case.jpg" alt="${data.cases.tinkoffEdu.imageAlt}" class="case-icon">
+                            <img src="icon-data/tinkoff-edu-case.jpg" alt="${data.cases.tinkoffEdu.imageAlt}" class="case-icon">
                             <div class="case-title">
                                 <h3>${data.cases.tinkoffEdu.title}</h3>
                                 <p>${data.cases.tinkoffEdu.clickToSee}</p>
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     <div class="case-card" onclick="toggleReview(this)">
                          <div class="case-header">
-                            <img src="private-case.jpg" alt="${data.cases.privateInvest.imageAlt}" class="case-icon">
+                            <img src="icon-data/private-case.jpg" alt="${data.cases.privateInvest.imageAlt}" class="case-icon">
                             <div class="case-title">
                                 <h3>${data.cases.privateInvest.title}</h3>
                                 <p>${data.cases.privateInvest.clickToSee}</p>
@@ -192,9 +192,16 @@ document.addEventListener('DOMContentLoaded', () => {
         html += `
             <section id="contact">
                 <h2>${data.sections.contact}</h2>
-                <p>${data.contact.location}</p>
-                 <a href="mailto:${data.contact.email}">${data.contact.emailLabel}</a> ·
-                 <a href="${data.contact.telegramLink}" target="_blank">${data.contact.telegramLabel}</a></p>
+                <div class="contact-links">
+                    <a href="mailto:${data.contact.email}">
+                        <img src="icon-data/icon-email.png" alt="Email Icon">
+                        <span>${data.contact.emailLabel}</span>
+                    </a>
+                    <a href="${data.contact.telegramLink}" target="_blank">
+                        <img src="icon-data/icon-telegram.png" alt="Telegram Icon">
+                        <span>${data.contact.telegramLabel}</span>
+                    </a>
+                </div>
             </section>
         `;
 
@@ -246,7 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Логика для модальных окон (Pop-up)
     function initExperienceCardModals() {
-        // Удаляем все предыдущие обработчики событий, чтобы избежать дублирования
         document.querySelectorAll('.experience-card').forEach(card => {
             const oldClickListener = card.__handleClick__;
             if (oldClickListener) {
@@ -279,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById(modalId).classList.add('is-visible');
             };
             card.addEventListener('click', newClickListener);
-            card.__handleClick__ = newClickListener; // Сохраняем ссылку на обработчик
+            card.__handleClick__ = newClickListener;
         });
 
         function closeModal() {
@@ -314,10 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.toggleMenu = function(){document.getElementById('nav-list').classList.toggle('open');}
 
     // 6. Анимация скиллов при прокрутке
-    let skillsObserver; // Объявляем переменную здесь, чтобы она была доступна в initSkillsAnimation
+    let skillsObserver;
 
     function initSkillsAnimation() {
-        // Отключаем предыдущий наблюдатель, если он существует
         if (skillsObserver) {
             skillsObserver.disconnect();
         }
@@ -342,27 +347,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Генерация и анимация молний
     const lightningContainer = document.getElementById('lightning-container');
     const lightnings = [];
-    const numLightnings = 15;
+    const numLightnings = 20; // Количество молний
+
+    // Функция для установки случайной позиции и размера молнии
+    function positionLightning(lightningElement) {
+        const sizeMultiplier = Math.random() * 0.5 + 0.5; // От 0.5 до 1.0 от базового размера
+        lightningElement.style.width = `${(5 + Math.random() * 3) * sizeMultiplier}vw`;
+        lightningElement.style.height = `${(7 + Math.random() * 5) * sizeMultiplier}vh`;
+        
+        // Случайное позиционирование по всей ширине и высоте окна
+        lightningElement.style.left = `${Math.random() * 100}vw`;
+        lightningElement.style.top = `${Math.random() * 100}vh`;
+
+        lightningElement.style.animationDelay = `${Math.random() * 5}s`;
+        lightningElement.style.animationDuration = `${Math.random() * 2 + 3}s`;
+    }
 
     if (lightningContainer) {
         for (let i = 0; i < numLightnings; i++) {
             const lightning = document.createElement('div');
             lightning.className = 'lightning';
-            
-            const side = Math.random() < 0.5 ? 'left' : 'right';
-            const xPos = side === 'left' ? Math.random() * 20 : Math.random() * 20 + 80; 
-
-            lightning.style.left = `${xPos}vw`;
-            lightning.style.top = `${Math.random() * 100}vh`;
-            lightning.style.width = `${5 + Math.random() * 3}vw`;
-            lightning.style.height = `${7 + Math.random() * 5}vh`;
-            lightning.style.animationDelay = `${Math.random() * 5}s`;
-            lightning.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            
+            positionLightning(lightning); // Устанавливаем начальную позицию и размер
             lightningContainer.appendChild(lightning);
             lightnings.push(lightning);
         }
     }
+
+    // Обновляем позиции и размеры молний при изменении размера окна
+    window.addEventListener('resize', () => {
+        lightnings.forEach(bolt => {
+            positionLightning(bolt); // Обновляем позицию и размер каждой молнии
+        });
+    });
 
     document.addEventListener('mousemove', (e) => {
         if (window.innerWidth <= 768) return;
