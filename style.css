@@ -80,7 +80,7 @@ nav{
     filter: invert(1) hue-rotate(180deg);
 }
 
-/* Стили для переключателя языка (TUMBLER) */
+/* Стили для переключателя языка (текстовые ссылки) */
 .language-switcher {
     display: flex;
     align-items: center;
@@ -89,68 +89,20 @@ nav{
     color: var(--primary-text);
 }
 
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px; /* Немного меньше */
-    height: 28px; /* Немного меньше */
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* The slider */
-.slider {
-    position: absolute;
+.lang-selector {
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
+    padding: 2px 5px;
+    border-radius: 4px;
+    transition: color 0.3s, background-color 0.3s;
+}
+.lang-selector:hover {
+    color: var(--accent);
+}
+.lang-selector.active {
+    color: var(--card-bg);
+    background-color: var(--accent);
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 20px; /* Немного меньше */
-    width: 20px; /* Немного меньше */
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-input:checked + .slider {
-    background-color: var(--accent); /* Используем акцентный цвет */
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px var(--accent);
-}
-
-input:checked + .slider:before {
-    -webkit-transform: translateX(22px); /* Адаптируем смещение */
-    -ms-transform: translateX(22px);
-    transform: translateX(22px);
-}
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 28px; /* Адаптируем радиус */
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
 
 nav ul{display: flex; gap: 24px; list-style: none}
 nav li a{color: var(--primary-text); text-decoration: none; font-weight: 500; transition: .3s}
@@ -167,7 +119,7 @@ nav li a:hover{color: var(--accent)}
 }
 
 /* ─────────── 3. Секции и Hero-блок (по центру) ─────────── */
-section{padding: 80px 20px; max-width: 1100px; margin: auto; position: relative}
+section{padding: 80px 20px; max-width: 1100px; margin: auto; position: relative; text-align: center;} /* Centered all sections */
 h2{font-family: 'Montserrat'; font-size: 28px; margin-bottom: 40px; text-align: center;}
 h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 
@@ -180,6 +132,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+    text-align: left; /* Keep content left-aligned within resume-content */
 }
 
 /* Basic resume styling (из предыдущего ответа) */
@@ -308,6 +261,7 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
     position: relative;
     transform: scale(0.9);
     transition: transform 0.3s ease, background 0.3s;
+    text-align: left; /* Keep content left-aligned within modals */
 }
 .modal-overlay.is-visible .modal-content { transform: scale(1); }
 .modal-close {
@@ -335,7 +289,12 @@ h3{font-family: 'Montserrat'; font-size: 22px; margin-bottom: 15px;}
 .case-review blockquote {border-left: 3px solid var(--accent); padding-left: 15px; margin: 0; font-style: italic;}
 .case-review footer {text-align: right; color: var(--muted-text); font-size: 14px; font-style: normal;}
 
-.competencies-grid{display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between;}
+.competencies-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center; /* Centered competency blocks */
+}
 .competency-block{flex: 1 1 300px; background: var(--card-bg); padding: 24px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: background 0.3s;}
 .competency-block h3{color: var(--accent)}
 .skillbox{margin-bottom: 20px}
@@ -395,4 +354,3 @@ footer{text-align: center; padding: 30px; color: var(--muted-text); font-size: 1
 @media(max-width: 768px){
     .lightning-container { display: none; }
 }
-
