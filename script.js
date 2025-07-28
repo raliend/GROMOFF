@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     const resumeContent = document.getElementById('resume-content');
-    const languageToggle = document.getElementById('languageToggle');
-    const langLabelEn = document.getElementById('lang-label-en');
-    const langLabelRu = document.getElementById('lang-label-ru');
+    const langEn = document.getElementById('lang-en');
+    const langRu = document.getElementById('lang-ru');
 
     // 1. Переключатель тем
     const themeSwitcher = document.getElementById('theme-switcher');
@@ -26,24 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLang = localStorage.getItem('resumeLang') || 'en';
 
     if (currentLang === 'ru') {
-        languageToggle.checked = true;
         body.lang = 'ru';
     } else {
-        languageToggle.checked = false;
         body.lang = 'en';
     }
 
     function updateLanguageLabels() {
+        // Удаляем активный класс со всех
+        langEn.classList.remove('active');
+        langRu.classList.remove('active');
+
+        // Добавляем активный класс текущему языку
         if (currentLang === 'en') {
-            langLabelEn.style.fontWeight = 'bold';
-            langLabelEn.style.color = 'var(--accent)';
-            langLabelRu.style.fontWeight = 'normal';
-            langLabelRu.style.color = 'inherit';
+            langEn.classList.add('active');
         } else {
-            langLabelRu.style.fontWeight = 'bold';
-            langLabelRu.style.color = 'var(--accent)';
-            langLabelEn.style.fontWeight = 'normal';
-            langLabelEn.style.color = 'inherit';
+            langRu.classList.add('active');
         }
     }
 
@@ -235,15 +231,19 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('a[data-section="contact"]').textContent = navData.contact;
     }
 
-    languageToggle.addEventListener('change', () => {
-        if (languageToggle.checked) {
-            currentLang = 'ru';
-            body.lang = 'ru';
-        } else {
-            currentLang = 'en';
-            body.lang = 'en';
-        }
+    // Event listeners for language selection
+    langEn.addEventListener('click', () => {
+        currentLang = 'en';
         localStorage.setItem('resumeLang', currentLang);
+        body.lang = 'en';
+        updateLanguageLabels();
+        loadResume(currentLang);
+    });
+
+    langRu.addEventListener('click', () => {
+        currentLang = 'ru';
+        localStorage.setItem('resumeLang', currentLang);
+        body.lang = 'ru';
         updateLanguageLabels();
         loadResume(currentLang);
     });
