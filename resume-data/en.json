@@ -10,6 +10,7 @@
         "downloadPdfButton": "Download PDF"
     },
     "nav": {
+        "top": "Top",
         "about": "About Me",
         "experience": "Experience",
         "cases": "Cases",
@@ -94,6 +95,7 @@
         }
     ],
     "contact": {
+        "location": "Moscow (ready for relocation and business trips)",
         "email": "i@gromoff.pro",
         "emailLabel": "E-Mail",
         "telegramLink": "https://t.me/gromoff1337",
