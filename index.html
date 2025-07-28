@@ -1,35 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GROMOFF - Resume</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Данила Рощупко — Product / Project Manager</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> <!-- Ссылка на style.css -->
 </head>
-<body>
-    <header>
-        <nav>
-            <h1>GROMOFF</h1>
-            <div class="language-switcher">
-                <label class="switch">
-                    <input type="checkbox" id="languageToggle">
-                    <span class="slider round"></span>
-                </label>
-                <span id="lang-label-en">EN</span> / <span id="lang-label-ru">RU</span>
-            </div>
-        </nav>
-    </header>
 
-    <main id="resume-content">
-        <!-- Контент резюме будет загружаться сюда -->
-        <p id="loading-message">Loading resume...</p>
-    </main>
+<body data-theme="light">
 
-    <footer>
-        <p>&copy; 2025 GROMOFF. All rights reserved.</p>
-    </footer>
+<div class="lightning-container" id="lightning-container"></div>
 
-    <script src="script.js"></script>
+<nav>
+  <div class="nav-left">
+    <button class="theme-switcher" id="theme-switcher">
+      <img src="logo.png" alt="Переключить тему" id="theme-logo">
+    </button>
+    <!-- Переключатель языка интегрирован сюда -->
+    <div class="language-switcher">
+        <label class="switch">
+            <input type="checkbox" id="languageToggle">
+            <span class="slider round"></span>
+        </label>
+        <span id="lang-label-en">EN</span> / <span id="lang-label-ru">RU</span>
+    </div>
+  </div>
+  <ul id="nav-list">
+    <li><a href="#about" data-section="about">Обо мне</a></li>
+    <li><a href="#experience" data-section="experience">Опыт</a></li>
+    <li><a href="#cases" data-section="cases">Кейсы</a></li>
+    <li><a href="#competencies" data-section="competencies">Компетенции</a></li>
+    <li><a href="#contact" data-section="contact">Контакты</a></li>
+  </ul>
+  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<main id="resume-content">
+  <!-- Весь динамический контент -->
+  <p id="loading-message">Загрузка резюме...</p>
+</main>
+
+<footer>
+  © @GROMOFF1337, 2025 • PortfolioPRO
+</footer>
+
+<!-- Модальные окна -->
+<div class="modal-overlay" id="rts-modal">
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <h3 data-key="rtsModalTitle">Ассоциация НП РТС</h3>
+        <ul>
+            <li data-key="rtsModalItem1">Руководил проектом по переводу ключевых сервисов на внутреннюю разработку.</li>
+            <li data-key="rtsModalItem2">Инициировал и запустил новые продукты на базе внебиржевой системы.</li>
+            <li data-key="rtsModalItem3">Управлял бюджетом, контролировал сроки и качество, координировал стейкхолдеров.</li>
+            <li data-key="rtsModalItem4">Создал и внедрил единую точку доступа к рыночным данным.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="modal-overlay" id="tbank-modal">
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <h3 data-key="tbankModalTitle">Т-Банк</h3>
+        <ul>
+            <li data-key="tbankModalItem1">Разрабатывал и внедрял цифровые обучающие программы для персонала.</li>
+            <li data-key="tbankModalItem2">Управлял портфелем премиальных клиентов, участвовал в запуске новых продуктов.</li>
+            <li data-key="tbankModalItem3">Оптимизировал внутренние процессы, внедрил структурированную базу знаний.</li>
+            <li data-key="tbankModalItem4">Создал систему наставничества для новых сотрудников и развивал культуру обучения.</li>
+        </ul>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-
