@@ -6,7 +6,7 @@
 <title>Данила Рощупко — Product / Project Manager</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css"> <!-- Ссылка на style.css -->
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body data-theme="light">
@@ -18,7 +18,6 @@
     <button class="theme-switcher" id="theme-switcher">
       <img src="logo.png" alt="Переключить тему" id="theme-logo">
     </button>
-    <!-- Переключатель языка интегрирован сюда -->
     <div class="language-switcher">
         <label class="switch">
             <input type="checkbox" id="languageToggle">
@@ -28,6 +27,7 @@
     </div>
   </div>
   <ul id="nav-list">
+    <li><a href="#top" data-section="top">Начало</a></li>
     <li><a href="#about" data-section="about">Обо мне</a></li>
     <li><a href="#experience" data-section="experience">Опыт</a></li>
     <li><a href="#cases" data-section="cases">Кейсы</a></li>
@@ -38,7 +38,7 @@
 </nav>
 
 <main id="resume-content">
-  <!-- Весь динамический контент -->
+  <!-- Контент резюме будет загружаться сюда динамически через JavaScript -->
   <p id="loading-message">Загрузка резюме...</p>
 </main>
 
@@ -46,16 +46,16 @@
   © @GROMOFF1337, 2025 • PortfolioPRO
 </footer>
 
-<!-- Модальные окна -->
+<!-- Модальные окна остаются статичными, так как они не являются частью динамического контента резюме, но их текст будет обновляться -->
 <div class="modal-overlay" id="rts-modal">
     <div class="modal-content">
         <button class="modal-close">&times;</button>
-        <h3 data-key="rtsModalTitle">Ассоциация НП РТС</h3>
+        <h3 data-key="rtsModalTitle"></h3>
         <ul>
-            <li data-key="rtsModalItem1">Руководил проектом по переводу ключевых сервисов на внутреннюю разработку.</li>
-            <li data-key="rtsModalItem2">Инициировал и запустил новые продукты на базе внебиржевой системы.</li>
-            <li data-key="rtsModalItem3">Управлял бюджетом, контролировал сроки и качество, координировал стейкхолдеров.</li>
-            <li data-key="rtsModalItem4">Создал и внедрил единую точку доступа к рыночным данным.</li>
+            <li data-key="rtsModalItem1"></li>
+            <li data-key="rtsModalItem2"></li>
+            <li data-key="rtsModalItem3"></li>
+            <li data-key="rtsModalItem4"></li>
         </ul>
     </div>
 </div>
@@ -63,12 +63,12 @@
 <div class="modal-overlay" id="tbank-modal">
     <div class="modal-content">
         <button class="modal-close">&times;</button>
-        <h3 data-key="tbankModalTitle">Т-Банк</h3>
+        <h3 data-key="tbankModalTitle"></h3>
         <ul>
-            <li data-key="tbankModalItem1">Разрабатывал и внедрял цифровые обучающие программы для персонала.</li>
-            <li data-key="tbankModalItem2">Управлял портфелем премиальных клиентов, участвовал в запуске новых продуктов.</li>
-            <li data-key="tbankModalItem3">Оптимизировал внутренние процессы, внедрил структурированную базу знаний.</li>
-            <li data-key="tbankModalItem4">Создал систему наставничества для новых сотрудников и развивал культуру обучения.</li>
+            <li data-key="tbankModalItem1"></li>
+            <li data-key="tbankModalItem2"></li>
+            <li data-key="tbankModalItem3"></li>
+            <li data-key="tbankModalItem4"></li>
         </ul>
     </div>
 </div>
@@ -76,3 +76,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+
