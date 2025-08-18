@@ -4,13 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (themeSwitch) {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
-
     function updateThemeIcon() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       themeSwitch.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
     }
     updateThemeIcon();
-
     themeSwitch.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -72,22 +70,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Плавная прокрутка к якорям
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      // Определяем высоту шапки
-      const nav = document.querySelector('.nav');
-      const navHeight = nav ? nav.offsetHeight : 80;
-      window.scrollTo({
-        top: target.offsetTop - navHeight,
-        behavior: 'smooth'
-      });
-    }
+  // Плавная прокрутка к якорям с учетом фиксированной шапки
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        const nav = document.querySelector('.nav');
+        let navHeight = nav ? nav.offsetHeight : 64;
+        window.scrollTo({
+          top: target.getBoundingClientRect().top + window.scrollY - navHeight,
+          behavior: 'smooth'
+        });
+      }
+    });
   });
-});
 
   document.querySelectorAll('.card-cta, .contact-link').forEach(button => {
     button.addEventListener('click', () => {
@@ -98,10 +95,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 
   // Отслеживание просмотра секций
-  const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '0px 0px -100px 0px'
-  };
+  const observerOptions = { threshold: 0.3, rootMargin: '0px 0px -100px 0px' };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting && typeof ym !== 'undefined') {
@@ -110,7 +104,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
     });
   }, observerOptions);
-
   ['hero', 'services', 'competence', 'reviews', 'faq', 'leadform'].forEach(sectionId => {
     const section = document.getElementById(sectionId);
     if (section) observer.observe(section);
@@ -126,7 +119,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       }
     });
   }, { threshold: 0.1 });
-
   cards.forEach(card => {
     card.style.opacity = '0';
     card.style.transform = 'translateY(30px)';
@@ -134,4 +126,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     cardObserver.observe(card);
   });
 });
-
