@@ -30,13 +30,16 @@ body {
 
 section { padding: 80px 20px; max-width: 1200px; margin: 0 auto; text-align: center; }
 
-.hero { background: var(--main-bg); text-align: center; padding: 120px 20px 80px; max-width: 1200px; margin: 0 auto; }
-
+.hero { background: var(--main-bg); text-align: center; margin-top: 78px; padding: 120px 20px 80px; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 600px) {
+  #hero {
+    margin-top: 110px;
+  }
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   display: flex; justify-content: space-between; align-items: center;
   background: rgba(248,250,251,0.85); backdrop-filter: blur(20px);
-  padding: 20px 40px; border-bottom: 1px solid rgba(41,198,185,0.1);
+  padding: 18px 20px; border-bottom: 1px solid rgba(41,198,185,0.1);
   transition: all 0.3s ease;
 }
 [data-theme="dark"] .nav {
@@ -273,5 +276,29 @@ footer a:hover { text-decoration: underline; }
   .nav { padding: 12px 15px;}
   .site-title { font-size: 20px;}
   #theme-switch { width: 35px; height: 35px; font-size: 16px;}
+
+  @media (max-width: 600px) {
+  .nav {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 8px;
+  }
+  .site-title {
+    font-size: 18px;
+  }
+  .nav-links {
+    margin-top: 8px;
+    gap: 10px;
+  }
+  .nav-controls {
+    gap: 6px;
+  }
+  .accent-link {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 8px;
+  }
 }
+}
+
 
