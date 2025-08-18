@@ -1,76 +1,36 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Данила Рощупко — Product / Project Manager</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GROMOFF.PRO — BI & Project Management Consulting</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <!-- Метатеги важны для репутации и SEO -->
+  <meta name="description" content="BI- и Project Management консалтинг. Автоматизация отчетности, внедрение Power BI/Tableau, управление проектами, финтех-кейсы.">
+  <!-- Счетчики аналитики (пример) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PROJECT-ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer ||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-PROJECT-ID');
+  </script>
 </head>
-
-<body data-theme="light">
-
-<div class="lightning-container" id="lightning-container"></div>
-
-<nav>
-  <div class="nav-left">
-    <button class="theme-switcher" id="theme-switcher">
-      <img src="icon-data/logo.png" alt="Переключить тему" id="theme-logo">
-    </button>
-    <div class="language-switcher">
-        <!-- Убрали тумблер, теперь переключаемся по клику на EN/RU -->
-        <span id="lang-en" class="lang-selector">EN</span> / <span id="lang-ru" class="lang-selector">RU</span>
-    </div>
-  </div>
-  <ul id="nav-list">
-    <li><a href="#top" data-section="top">Начало</a></li>
-    <li><a href="#about" data-section="about">Обо мне</a></li>
-    <li><a href="#experience" data-section="experience">Опыт</a></li>
-    <li><a href="#cases" data-section="cases">Кейсы</a></li>
-    <li><a href="#competencies" data-section="competencies">Компетенции</a></li>
-    <li><a href="#contact" data-section="contact">Контакты</a></li>
-  </ul>
-  <div class="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-</nav>
-
-<main id="resume-content">
-  <!-- Контент резюме будет загружаться сюда динамически через JavaScript -->
-  <p id="loading-message">Загрузка резюме...</p>
-</main>
-
-<footer>
-  © @GROMOFF1337, 2025 • PortfolioPRO
-</footer>
-
-<!-- Модальные окна остаются статичными, так как они не являются частью динамического контента резюме, но их текст будет обновляться -->
-<div class="modal-overlay" id="rts-modal">
-    <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <h3 data-key="rtsModalTitle"></h3>
-        <ul>
-            <li data-key="rtsModalItem1"></li>
-            <li data-key="rtsModalItem2"></li>
-            <li data-key="rtsModalItem3"></li>
-            <li data-key="rtsModalItem4"></li>
-        </ul>
-    </div>
-</div>
-
-<div class="modal-overlay" id="tbank-modal">
-    <div class="modal-content">
-        <button class="modal-close">&times;</button>
-        <h3 data-key="tbankModalTitle"></h3>
-        <ul>
-            <li data-key="tbankModalItem1"></li>
-            <li data-key="tbankModalItem2"></li>
-            <li data-key="tbankModalItem3"></li>
-            <li data-key="tbankModalItem4"></li>
-        </ul>
-    </div>
-</div>
-
-<script src="script.js"></script>
-</body>
-</html>
-
+<body>
+  <!-- Header (логотип + контакты + CTA) -->
+  <header id="main-header">
+    <nav class="nav">
+      <div class="logo">
+        <!-- SVG для четкости и скорости, никуда не уходит на мобиле -->
+        <img src="assets/img/gromoff-logo.svg" alt="GROMOFF.PRO" width="38" height="38">
+        <span class="site-title">GROMOFF.PRO</span>
+      </div>
+      <div class="nav-links">
+        <a href="#services">Услуги</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#process">Процесс</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact" class="accent-link">Контакты</a>
+        <a href="#leadform" class="primary-cta pulse">Получить консультацию</a>
+      </div>
+    </nav>
+  </header>
