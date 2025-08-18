@@ -1,0 +1,16 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="lightning" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#29C6B9"/>
+      <stop offset="100%" stop-color="#70e1bb"/>
+    </linearGradient>
+  </defs>
+  <polygon points="24,4 32,20 20,26 28,44 24,36 16,28 26,20" fill="url(#lightning)" filter="url(#glow)"/>
+</svg>

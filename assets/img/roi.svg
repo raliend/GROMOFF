@@ -1,0 +1,18 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-roi" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M16 48L24 32L32 40L40 24L48 32" stroke="#29C6B9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" filter="url(#glow-roi)"/>
+  <path d="M40 24H48V32" stroke="#29C6B9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="24" cy="32" r="3" fill="#29C6B9"/>
+  <circle cx="32" cy="40" r="3" fill="#29C6B9"/>
+  <circle cx="40" cy="24" r="3" fill="#29C6B9"/>
+  <circle cx="48" cy="32" r="3" fill="#29C6B9"/>
+  <rect x="12" y="52" width="40" height="4" rx="2" fill="#29C6B9" opacity="0.3"/>
+</svg>
