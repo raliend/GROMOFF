@@ -176,13 +176,74 @@ h3 { font-family: 'Montserrat', sans-serif; font-size: 24px; margin-bottom: 20px
 }
 .lead-guarantee img { width: 20px; height: 20px; filter: drop-shadow(0 0 5px var(--accent)); }
 
-footer { text-align: center; padding: 30px; color: var(--muted-text); font-size: 14px; border-top: 1px solid #e5e7eb;}
+footer {
+  text-align: center;
+  padding: 40px 20px 30px;
+  color: var(--muted-text);
+  font-size: 14px;
+  border-top: 1px solid rgba(229, 231, 235, 0.3);
+  background: var(--main-bg);
+}
 footer a { color: var(--accent); text-decoration: none;}
 footer a:hover { text-decoration: underline; }
 
 .card-anim { transition: all 0.3s ease; }
 .card-anim:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 30px rgba(41,198,185,0.15); }
+.studio-credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 13px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
 
+.studio-credit:hover {
+  opacity: 1;
+}
+
+.studio-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.studio-link:hover {
+  transform: scale(1.05);
+}
+
+.studio-logo {
+  height: 20px;
+  width: auto;
+  filter: brightness(0.8);
+  transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .studio-logo {
+  filter: brightness(1.2);
+}
+
+.studio-link:hover .studio-logo {
+  filter: brightness(1.1);
+}
+
+[data-theme="dark"] .studio-link:hover .studio-logo {
+  filter: brightness(1.4);
+}
+
+/* Адаптивность футера */
+@media (max-width: 480px) {
+  .studio-credit {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .studio-logo {
+    height: 18px;
+  }
+}
 /* Адаптив */
 @media (max-width: 1100px) {
   section { padding: 60px 10px; }
@@ -213,3 +274,4 @@ footer a:hover { text-decoration: underline; }
   .site-title { font-size: 20px;}
   #theme-switch { width: 35px; height: 35px; font-size: 16px;}
 }
+
